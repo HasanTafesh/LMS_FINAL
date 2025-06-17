@@ -24,7 +24,7 @@
   },
   "scripts": {
     "build": "react-scripts build",
-    "start": "react-scripts start",
+    "start": "serve -s build -l 5000",
     "serve": "npx serve -s build",
     "dev": "react-scripts start",
     "test": "react-scripts test",
