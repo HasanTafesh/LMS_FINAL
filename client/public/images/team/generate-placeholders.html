@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generate Placeholder Images</title>
+    <style>
+        canvas {
+            border: 1px solid #ccc;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Placeholder Images</h1>
+    <div id="images"></div>
+
+    <script>
+        function generatePlaceholder(number) {
+            const canvas = document.createElement('canvas');
+            canvas.width = 400;
+            canvas.height = 300;
+            const ctx = canvas.getContext('2d');
+
+            // Background
+            ctx.fillStyle = '#f8f9fa';
+            ctx.fillRect(0, 0, 400, 300);
+
+            // Border
+            ctx.strokeStyle = '#dee2e6';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(0, 0, 400, 300);
+
+            // Text
+            ctx.fillStyle = '#6c757d';
+            ctx.font = 'bold 24px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(`Team Member ${number}`, 200, 150);
+
+            // Save the image
+            const link = document.createElement('a');
+            link.download = `placeholder-${number}.jpg`;
+            link.href = canvas.toDataURL('image/jpeg');
+            link.click();
+        }
+
+        // Generate three placeholder images
+        for (let i = 1; i <= 3; i++) {
+            generatePlaceholder(i);
+        }
+    </script>
+</body>
+</html> 
