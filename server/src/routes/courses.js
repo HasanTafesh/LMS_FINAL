@@ -41,7 +41,11 @@ router.get('/enrolled', auth, async (req, res) => {
     const user = await User.findById(req.user.id)
       .populate({
         path: 'enrolledCourses',
-        select: 'title thumbnail description'
+        select: 'title thumbnail description instructor',
+        populate: {
+          path: 'instructor',
+          select: 'firstName lastName'
+        }
       });
 
     res.json(user.enrolledCourses.map(course => ({
@@ -49,6 +53,7 @@ router.get('/enrolled', auth, async (req, res) => {
       title: course.title,
       thumbnail: course.thumbnail,
       description: course.description,
+      instructor: course.instructor ? `${course.instructor.firstName} ${course.instructor.lastName}` : 'N/A',
       lastAccessed: user.lastLogin || new Date()
     })));
   } catch (error) {
