@@ -2,7 +2,7 @@
 
 Skillora is a comprehensive Learning Management System (LMS) built with React, Node.js, and MongoDB. It provides a modern platform for online learning, course management, and student-instructor interaction with a focus on user experience and functionality.
 
-## 🌟 Key Features
+## Key Features
 
 ### User Management
 - Secure authentication and authorization
@@ -13,18 +13,15 @@ Skillora is a comprehensive Learning Management System (LMS) built with React, N
 ### Course Management
 - Create and manage courses with rich content
 - Support for multiple content types:
-  - Video lessons
   - Text-based content
-- Course categorization and search
+  - File uploads for course materials
 - Module-based course structure
-- Drag-and-drop module reordering
 
 ### Content Features
-- Rich text editor for content creation
-- File upload system for course materials
-- Video player integration
 - Module-based content organization
+- File upload system for course materials
 - Interactive course content viewing
+- Progress tracking for students
 
 ### User Experience
 - Responsive design for all devices
@@ -33,14 +30,13 @@ Skillora is a comprehensive Learning Management System (LMS) built with React, N
 - Progress tracking
 - Clean and intuitive interface
 
-## 🛠️ Technology Stack
+## Technology Stack
 
 ### Frontend
 - React 18
 - React Router v6
 - Bootstrap 5
 - Axios for API calls
-- React Beautiful DnD for drag-and-drop
 - React Toastify for notifications
 - Context API for state management
 
@@ -52,14 +48,14 @@ Skillora is a comprehensive Learning Management System (LMS) built with React, N
 - Multer for file uploads
 - CORS enabled
 
-## 📋 Prerequisites
+## Prerequisites
 
 - Node.js (v14 or higher)
 - MongoDB
 - npm or yarn package manager
 - Modern web browser
 
-## 🚀 Getting Started
+## Getting Started
 
 ### 1. Clone the Repository
 ```bash
@@ -76,7 +72,7 @@ npm install
 
 # Create .env file with the following variables:
 PORT=5000
-MONGODB_URI=mongodb://localhost:27017/skillora
+MONGO_URI=mongodb://localhost:27017/skillora
 JWT_SECRET=your_jwt_secret
 NODE_ENV=development
 
@@ -98,7 +94,7 @@ REACT_APP_API_URL=http://localhost:5000
 npm start
 ```
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 skillora/
@@ -116,9 +112,9 @@ skillora/
     │   ├── routes/      # API routes
     │   ├── models/      # MongoDB models
     │   ├── middleware/  # Custom middleware
-    │   ├── controllers/ # Route controllers
-    │   └── utils/      # Utility functions
-    └── uploads/        # File upload directory
+    │   └── server.js    # Main server file
+    └── uploads/         # File upload directory
+        └── courses/     # Course thumbnails
 ```
 
 ## 🛠️ Development
@@ -137,50 +133,48 @@ npm run dev     # Start development server
 npm start       # Start production server
 ```
 
-## 🔒 Security Features
+## Security Features
 - JWT-based authentication
 - Password hashing with bcrypt
 - CORS protection
 - File upload validation
 - Protected routes based on user roles
 
-## 📚 API Documentation
+## API Documentation
 
 ### Main API Endpoints
 
 #### Authentication
 - POST `/api/auth/register` - User registration
 - POST `/api/auth/login` - User login
-- GET `/api/auth/profile` - Get user profile
+- GET `/api/auth/me` - Get current user profile
+- PUT `/api/auth/profile` - Update user profile
 - PUT `/api/auth/password` - Change password
 
 #### Courses
 - GET `/api/courses` - List all courses
-- POST `/api/courses` - Create new course
+- GET `/api/courses/enrolled` - Get enrolled courses for current user
+- GET `/api/courses/instructor` - Get instructor's courses
+- GET `/api/courses/students/instructor` - Get instructor's students
 - GET `/api/courses/:id` - Get course details
+- POST `/api/courses` - Create new course
 - PUT `/api/courses/:id` - Update course
 - DELETE `/api/courses/:id` - Delete course
-- PUT `/api/courses/:id/modules/reorder` - Reorder course modules
+- POST `/api/courses/:id/enroll` - Enroll in a course
+- GET `/api/courses/:id/enrollment` - Check enrollment status
 
-#### Content
-- POST `/api/upload` - Upload files
-- GET `/api/courses/:id/learn` - Get course content
-- POST `/api/courses/:id/modules` - Add module
-- PUT `/api/courses/:id/modules/:moduleId` - Update module
-- DELETE `/api/courses/:id/modules/:moduleId` - Delete module
+#### Course Content
+- POST `/api/courses/:courseId/modules` - Add module to course
+- PUT `/api/courses/:courseId/modules/:moduleId` - Update module
+- DELETE `/api/courses/:courseId/modules/:moduleId` - Delete module
+- PUT `/api/courses/:courseId/modules/reorder` - Reorder course modules
+- POST `/api/courses/:courseId/modules/:moduleId/content` - Add content to module
+- POST `/api/courses/content/upload` - Upload course content files
+- GET `/api/courses/:courseId/progress` - Get course progress
+- POST `/api/courses/:courseId/modules/:moduleId/complete` - Mark module as completed
 
-## 🤝 Contributing
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
 
 ## 📝 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 💬 Support
-
-For support, please create an issue in the repository. 
